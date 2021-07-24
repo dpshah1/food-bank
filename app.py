@@ -12,10 +12,26 @@ class User(db.Model):
     last_name = db.Column(db.String(50))
     username = db.Column(db.String(50))
     password = db.Column(db.String(50))
+    company_name = db.Column(db.String(50))
     items_donated = db.Column(db.Integer)
 
     def __repr__(self):
         return f"Username: {self.username} Password: {self.password}"
+
+class FoodBank(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(50))
+    items_needed = db.Column(db.String(500))
+    #list_of_items = items_needed.split(" ")
+    street_adress = db.Column(db.String(100))
+    city = db.Column(db.String(50))
+    state = db.Column(db.String(50))
+    zip_code = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f"Name: {self.name} Password: {self.list_of_items}"
+    
+
 
 
 @app.route("/")
