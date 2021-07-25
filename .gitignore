@@ -1,0 +1,4 @@
+sqlite-tools-win32-x86-3360000/*
+__pycache__/*
+env/*
+test.db

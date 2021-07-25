@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Donation</title>
+{% endblock %}
+
+{% block body %}
+<h1>Here you can donate food.</h1>
+<h1>Enter in your zip code</h1> 
+<form action="donate" method="post">
+    <input type="number" placeholder="Zip Code" name="zipcode" value="{{
+      request.form.zipcode }}">
+    <input class="btn btn-default" type="submit" value="Enter">
+     
+</form>
+
+<h1>These are the three closest food banks to your location.</h1>
+{% for x in arr %}
+    <h1>{{ x }}</h1>
+{% endfor %}
+
+<h1>Pick a food bank.</h1>
+
+
+{% endblock %}

@@ -117,10 +117,45 @@ def food_bank():
             bank = FoodBank(name = row[0], items_needed = row[1], street_adress = row[2], city = row[3], state = row[4], zip_code = row[5])
             print(bank)
             arr.append(bank)
+    
+
     accounts = FoodBank.query.order_by(FoodBank.id).all()
 
     print(arr)
     return render_template('food_banks.html', array = accounts)
+
+@app.route('/donate', methods = ['GET', 'POST'])
+def donate():
+    top3 = []
+    banks_to_distance = {}
+    if request.method == 'POST':
+        code = request.form['zipcode']
+        banks = FoodBank.query.order_by(FoodBank.id).all()
+        code = int(code)
+        for x in banks:
+            num = int(x.zip_code) 
+            banks_to_distance[x] = abs(num - code)
+        
+        sorted_values = sorted(banks_to_distance.values()) # Sort the values
+        sorted_dict = {}
+
+        for i in sorted_values:
+            for k in banks_to_distance.keys():
+                if banks_to_distance[k] == i:
+                    sorted_dict[k] = banks_to_distance[k]
+                    break
+        sorted_keys = list(sorted_dict.keys())
+        for i in range(3):
+            print(sorted_keys[i])
+            top3.append(sorted_keys[i])
+
+
+        
+
+        
+    
+    return render_template('donation.html', arr = top3)
+           
 
 
        
