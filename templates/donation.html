@@ -21,5 +21,12 @@
 
 <h1>Pick a food bank.</h1>
 
+<form action='donate' method ='post'>
+    <input type="radio" name="bank_select" value="op1">{{ arr[0] }}<br>
+    <input type="radio" name="bank_select" value="op2">{{ arr[1] }}<br>
+    <input type="radio" name="bank_select" value="op3">{{ arr[2] }}<br>
+    <input class="btn btn-default" type="submit" value="Enter">
+</form>
+
 
 {% endblock %}

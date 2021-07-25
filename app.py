@@ -148,13 +148,15 @@ def donate():
         for i in range(3):
             print(sorted_keys[i])
             top3.append(sorted_keys[i])
-
+        
+    return render_template('donation.html', arr = top3)
+        
 
         
 
         
     
-    return render_template('donation.html', arr = top3)
+    
            
 
 
