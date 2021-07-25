@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask import Blueprint
@@ -36,6 +36,8 @@ class FoodBank(db.Model):
 
     def __repr__(self):
         return f"Name: {self.name} Password: {self.items_needed}"
+
+ 
     
 
 current_user = User()
@@ -66,6 +68,7 @@ def login():
             else:
                 return "error"
         else:
+            #flash("user does not exist")
             return "user doesn't exist"
 
 
@@ -76,6 +79,7 @@ def login():
 
 @app.route("/signup", methods = ['GET', 'POST'])
 def signup():
+    global current_user
     if request.method == 'POST':
         f_name = request.form['first_name']
         l_name = request.form['last_name']
