@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask import Blueprint
+import csv
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -35,7 +36,7 @@ class FoodBank(db.Model):
     zip_code = db.Column(db.Integer)
 
     def __repr__(self):
-        return f"Name: {self.name} Password: {self.items_needed}"
+        return f"Name: {self.name} Adress: {self.street_adress}"
 
  
     
@@ -105,6 +106,24 @@ def signup():
 def view_accounts():
     accounts = User.query.order_by(User.id).all()
     return render_template('accounts.html', accounts = accounts)
+
+@app.route('/foodbank')
+def food_bank():
+    arr = []
+    with open('food-data.csv') as file:
+        reader = csv.reader(file)
+
+        for row in reader:
+            bank = FoodBank(name = row[0], items_needed = row[1], street_adress = row[2], city = row[3], state = row[4], zip_code = row[5])
+            print(bank)
+            arr.append(bank)
+    accounts = FoodBank.query.order_by(FoodBank.id).all()
+
+    print(arr)
+    return render_template('food_banks.html', array = accounts)
+
+
+       
 
 
 
