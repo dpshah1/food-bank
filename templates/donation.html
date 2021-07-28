@@ -15,16 +15,14 @@
 </form>
 
 <h1>These are the three closest food banks to your location.</h1>
-{% for x in arr %}
-    <h1>{{ x }}</h1>
-{% endfor %}
-
 <h1>Pick a food bank.</h1>
 
 <form action='donate' method ='post'>
-    <input type="radio" name="bank_select" value="op1">{{ arr[0] }}<br>
-    <input type="radio" name="bank_select" value="op2">{{ arr[1] }}<br>
-    <input type="radio" name="bank_select" value="op3">{{ arr[2] }}<br>
+    <div class="bank-selection">
+        <input id="fbradio" type="radio" name="bank_select" value="op1">{{ arr[0] }}<br>
+        <input id="fbradio" type="radio" name="bank_select" value="op2">{{ arr[1] }}<br>
+        <input id="fbradio" type="radio" name="bank_select" value="op3">{{ arr[2] }}<br>
+    </div>
     <input class="btn btn-default" type="submit" value="Enter">
 </form>
 

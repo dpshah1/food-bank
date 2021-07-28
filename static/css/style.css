@@ -13,3 +13,12 @@ label{
 }
 
 
+.bank-selection {
+    color:white;
+    border: 5px solid green;
+    padding: 20px;
+}
+
+#fbradio {
+    text-indent: 10rem;
+}

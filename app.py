@@ -36,7 +36,7 @@ class FoodBank(db.Model):
     zip_code = db.Column(db.Integer)
 
     def __repr__(self):
-        return f"Name: {self.name} Adress: {self.street_adress}"
+        return f"Name: {self.name} Adress: {self.street_adress} in {self.city}, {self.state}"
 
  
     
@@ -107,21 +107,20 @@ def view_accounts():
     accounts = User.query.order_by(User.id).all()
     return render_template('accounts.html', accounts = accounts)
 
-@app.route('/foodbank')
+@app.route('/bank')
 def food_bank():
-    arr = []
     with open('food-data.csv') as file:
         reader = csv.reader(file)
 
         for row in reader:
-            bank = FoodBank(name = row[0], items_needed = row[1], street_adress = row[2], city = row[3], state = row[4], zip_code = row[5])
-            print(bank)
-            arr.append(bank)
-    
-
+            bank = FoodBank.query.filter_by(name=row[0]).first()
+            if bank is None:
+                new_bank = FoodBank(name = row[0], items_needed = row[1], street_adress = row[2], city = row[3], state = row[4], zip_code = row[5])
+                db.session.add(new_bank)
+                db.session.commit()
+                
     accounts = FoodBank.query.order_by(FoodBank.id).all()
-
-    print(arr)
+    print(accounts)
     return render_template('food_banks.html', array = accounts)
 
 @app.route('/donate', methods = ['GET', 'POST'])
